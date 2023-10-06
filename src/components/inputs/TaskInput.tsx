@@ -6,7 +6,7 @@ type Props = {}
 const TaskInput = (props: Props) => {
   return (
     <View style={styles.container}>
-        <TextInput style={styles.input} onChange={(e) => console.log(e.currentTarget.value)}  placeholder='Enter a task'/>
+        <TextInput style={styles.input} onChange={(e) => console.log(e.currentTarget)}  placeholder='Enter a task'/>
         <TouchableOpacity style={styles.submitButton} onPress={() => console.log("Submit")}>
             <Text>Submit</Text>
         </TouchableOpacity>

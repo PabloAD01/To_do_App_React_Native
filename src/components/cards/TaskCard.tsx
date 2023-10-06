@@ -6,9 +6,9 @@ type Props = {}
 const TaskCard = (props: Props) => {
   return (
     <View style={styles.container}>
-        <Text style={styles.taskText} > Enter a task</Text>
+        <Text style={styles.taskText} > Task</Text>
         <TouchableOpacity style={styles.deleteButton} onPress={() => console.log("Submit")}>
-            <Text>R</Text>
+            <Text style={styles.buttonText}>R</Text>
         </TouchableOpacity>
     </View>
   )
@@ -18,20 +18,29 @@ const styles = StyleSheet.create({
     container:{
         borderWidth: 1,
         flexDirection: 'row',
+        borderRadius: 8,
+        padding: 8,
+        alignItems: 'center',
     },
     taskText:{
-        borderWidth: 1,
         height: 40,
         flex: 1,
         fontSize: 18,
+        textAlignVertical: 'center',
         
     },
     deleteButton:{
-        borderWidth: 1,
-        height: 40,
         width: 40,
+        height: 40,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: '#ff7c70',
+        borderRadius: 8
+    },
+    buttonText:{
+        fontWeight: 'bold',
+        color: 'white'
+        
     }
     
 })
