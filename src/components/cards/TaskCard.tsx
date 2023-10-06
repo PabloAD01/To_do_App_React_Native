@@ -1,13 +1,22 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ITask } from '../../screens/HomeScreen';
 
-type Props = {}
+type Props = {
+    data: ITask
+    deleteTask: (id: number) => void;
+}
 
-const TaskCard = (props: Props) => {
+const TaskCard = ({data, deleteTask}: Props) => {
+
+    const handleClick = () => {
+        deleteTask(data.id);
+    }
+
   return (
     <View style={styles.container}>
-        <Text style={styles.taskText} > Task</Text>
-        <TouchableOpacity style={styles.deleteButton} onPress={() => console.log("Submit")}>
+        <Text style={styles.taskText} >{data.name}</Text>
+        <TouchableOpacity style={styles.deleteButton} onPress={handleClick}>
             <Text style={styles.buttonText}>R</Text>
         </TouchableOpacity>
     </View>

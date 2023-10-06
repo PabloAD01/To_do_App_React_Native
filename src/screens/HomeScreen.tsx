@@ -1,71 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import TaskInput from '../components/inputs/TaskInput';
 import TaskCard from '../components/cards/TaskCard';
 
 type Props = {};
 
-interface ITask {
+export interface ITask {
   id: number;
   name: string;
 }
 
-const tasks: ITask[] = [
-  {
-    id: 1,
-    name: 'Task 1',
-  },
-  {
-    id: 2,
-    name: 'Task 2',
-  },
-  {
-    id: 3,
-    name: 'Task 3',
-  },
-  {
-    id: 4,
-    name: 'Task 4',
-  },
-  {
-    id: 5,
-    name: 'Task 1',
-  },
-  {
-    id: 6,
-    name: 'Task 2',
-  },
-  {
-    id: 7,
-    name: 'Task 3',
-  },
-  {
-    id: 8,
-    name: 'Task 4',
-  },
-  {
-    id: 9,
-    name: 'Task 1',
-  },
-  {
-    id: 10,
-    name: 'Task 2',
-  },
-  {
-    id: 11,
-    name: 'Task 3',
-  },
-  {
-    id: 12,
-    name: 'Task 4',
-  },
-];
 
 const HomeScreen = (props: Props) => {
+
+  const [tasks, setTasks] = useState<ITask[]>([]);
+
+  
+
+  const addTask = (name: string) => {
+    setTasks([...tasks, {id: tasks.length + 1, name: name}]);
+  }
+
+  const deleteTask = (id: number) => {
+    setTasks(tasks.filter(task => task.id !== id));
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.inputSection}>
-        <TaskInput />
+        <TaskInput addTask={addTask} />
       </View>
       <View style={styles.taskSection}>
         <FlatList
@@ -75,7 +38,7 @@ const HomeScreen = (props: Props) => {
         ItemSeparatorComponent={() => <View style={{ height: 10}} />}
           data={tasks}
           
-          renderItem={(item) => <TaskCard />}
+          renderItem={(data) => <TaskCard data={data.item} deleteTask={deleteTask} />}
         />
       </View>
     </View>

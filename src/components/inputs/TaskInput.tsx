@@ -1,35 +1,69 @@
-import React from 'react'
-import { TextInput, View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import React, {useRef, useState} from 'react';
+import {
+  TextInput,
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+} from 'react-native';
 
-type Props = {}
+type Props = {
+  addTask: (name: string) => void;
+};
 
-const TaskInput = (props: Props) => {
+const TaskInput = ({addTask}: Props) => {
+  const [text, setText] = useState<string>('');
+  const inputRef = useRef<TextInput>(null);
+
+  const handleSubmit = () => {
+    if (text === '') {
+      return;
+    }
+    addTask(text);
+    setText('');
+    inputRef.current?.clear();
+  };
+
   return (
     <View style={styles.container}>
-        <TextInput style={styles.input} onChange={(e) => console.log(e.currentTarget)}  placeholder='Enter a task'/>
-        <TouchableOpacity style={styles.submitButton} onPress={() => console.log("Submit")}>
-            <Text>Submit</Text>
-        </TouchableOpacity>
+      <TextInput
+        ref={inputRef}
+        style={styles.input}
+        onChange={e => setText(e.nativeEvent.text)}
+        placeholder="Enter a task"
+        placeholderTextColor={'#9e9e9e'}
+      />
+      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+        <Text style={styles.buttonText}>Add</Text>
+      </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-    container:{
-        borderWidth: 1,
-        flexDirection: 'row',
-    },
-    input:{
-        borderWidth: 1,
-        height: 40,
-        flex: 1
-    },
-    submitButton:{
-        borderWidth: 1,
-        height: 40,
-        width: 40
-    }
-    
-})
+  container: {
+    flexDirection: 'row',
+    backgroundColor: '#fafafa',
+    borderRadius: 8,
+    padding: 8,
+  },
+  input: {
+    height: 40,
+    flex: 1,
+  },
+  submitButton: {
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#61f7ff',
+    borderRadius: 8,
+    overflow: 'hidden',
+  },
+  buttonText: {
+    paddingHorizontal: 8,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+});
 
-export default TaskInput
+export default TaskInput;
